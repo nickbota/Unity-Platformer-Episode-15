@@ -3,10 +3,9 @@ using UnityEngine.UI;
 
 public class VolumeText : MonoBehaviour
 {
-    [SerializeField] private string volumeType;
-    [SerializeField] private string variableName;
+    [SerializeField] private string volumeName;
+    [SerializeField] private string textIntro; //Sound:  or Music:
     private Text txt;
-    private float updateTimer;
 
     private void Awake()
     {
@@ -14,13 +13,11 @@ public class VolumeText : MonoBehaviour
     }
     private void Update()
     {
-        updateTimer += Time.unscaledTime;
-        if (updateTimer > 0.5f)
-            UpdateText();
+        UpdateVolume();
     }
-    private void UpdateText()
+    private void UpdateVolume()
     {
-        //Load current saved volume and show it as a string (with no decimals using F0)
-        txt.text = volumeType + PlayerPrefs.GetFloat(variableName, 100).ToString("F0");
+        float volumeValue = PlayerPrefs.GetFloat(volumeName) * 100;
+        txt.text = textIntro + volumeValue.ToString();
     }
 }
